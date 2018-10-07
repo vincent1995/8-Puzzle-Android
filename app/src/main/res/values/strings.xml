@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">8Puzzle</string>
+    <string name="appTitle">8 PUZZLE</string>
+    <string name="citation">Author: Blaine</string>
+    <string name="bestBoardTitle">BEST</string>
+    <string name="stepBoardTitle">STEP</string>
+    <string name="start">Start Again</string>
+</resources>

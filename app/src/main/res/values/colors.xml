@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#edebe1</color>
+    <color name="colorPrimaryDark">#d6ccb4</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="backgroundColor">#edebe1</color>
+    <color name="gridBackgroudColor">#a3968b</color>
+    <color name="filledGridColor">#cac2b5</color>
+    <color name="emptyGridColor">#b7ac9f</color>
+    <color name="textColor">#605951</color>
+    <color name="buttonBackgroundColor">#756554</color>
+    <color name="buttonTextColor">#ece9e4</color>
+    <color name="scoreBackgroundColor">#a3968b</color>
+    <color name="scoreTitleColor">#dad2c7</color>
+    <color name="scoreTextColor">#f2f2f2</color>
+    <color name="appTitleColor">#605951</color>
+    <color name="citeColor">#605951</color>
+    <color name="winColor">#c8ede349</color>
+    <color name="winTextColor">#ffffff</color>
+</resources>
