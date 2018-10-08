@@ -10,40 +10,26 @@
 
     <TextView
         android:id="@+id/appTitle"
-        android:layout_width="219dp"
-        android:layout_height="51dp"
+        android:layout_width="169dp"
+        android:layout_height="52dp"
         android:layout_marginTop="16dp"
         android:text="@string/appTitle"
         android:textSize="36sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/cite"
+        app:layout_constraintEnd_toStartOf="@+id/button"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/cite"
-        android:layout_width="106dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="@string/citation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/appTitle"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/bestBoard"
         android:layout_width="71dp"
         android:layout_height="77dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
         android:background="@color/scoreBackgroundColor"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/showAstarAnswer"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/stepBoard"
         app:layout_constraintTop_toBottomOf="@+id/appTitle">
@@ -76,8 +62,6 @@
         android:id="@+id/stepBoard"
         android:layout_width="71dp"
         android:layout_height="77dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
         android:background="@color/scoreBackgroundColor"
         android:gravity="center"
         android:orientation="vertical"
@@ -115,18 +99,16 @@
         android:id="@+id/button"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:layout_marginTop="16dp"
         android:background="@color/buttonBackgroundColor"
         android:onClick="clickStart"
         android:text="@string/start"
         android:textColor="@color/buttonTextColor"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/bestBoard"
-        app:layout_constraintTop_toBottomOf="@+id/cite" />
+        app:layout_constraintStart_toEndOf="@+id/appTitle"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -164,11 +146,11 @@
             android:layout_marginTop="@dimen/grid_margin"
             android:background="@color/filledGridColor"
             android:gravity="center"
+            android:onClick="clickBox"
             android:text="1"
             android:textColor="@color/textColor"
             android:textSize="50sp"
             android:textStyle="bold"
-            android:onClick="clickBox"
             app:layout_constraintBottom_toTopOf="@+id/box5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -177,7 +159,6 @@
 
         <TextView
             android:id="@+id/box3"
-            android:onClick="clickBox"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/grid_margin"
@@ -188,6 +169,7 @@
             android:layout_marginTop="@dimen/grid_margin"
             android:background="@color/filledGridColor"
             android:gravity="center"
+            android:onClick="clickBox"
             android:text="1"
             android:textColor="@color/textColor"
             android:textSize="50sp"
@@ -200,7 +182,6 @@
 
         <TextView
             android:id="@+id/box1"
-            android:onClick="clickBox"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/grid_margin"
@@ -211,6 +192,7 @@
             android:layout_marginTop="@dimen/grid_margin"
             android:background="@color/filledGridColor"
             android:gravity="center"
+            android:onClick="clickBox"
             android:text="1"
             android:textColor="@color/textColor"
             android:textSize="50sp"
@@ -223,7 +205,6 @@
 
         <TextView
             android:id="@+id/box0"
-            android:onClick="clickBox"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/grid_margin"
@@ -234,6 +215,7 @@
             android:layout_marginTop="@dimen/grid_margin"
             android:background="@color/filledGridColor"
             android:gravity="center"
+            android:onClick="clickBox"
             android:text="1"
             android:textColor="@color/textColor"
             android:textSize="50sp"
@@ -246,7 +228,6 @@
 
         <TextView
             android:id="@+id/box6"
-            android:onClick="clickBox"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/grid_margin"
@@ -257,6 +238,7 @@
             android:layout_marginTop="@dimen/grid_margin"
             android:background="@color/filledGridColor"
             android:gravity="center"
+            android:onClick="clickBox"
             android:text="1"
             android:textColor="@color/textColor"
             android:textSize="50sp"
@@ -269,7 +251,6 @@
 
         <TextView
             android:id="@+id/box7"
-            android:onClick="clickBox"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/grid_margin"
@@ -280,6 +261,7 @@
             android:layout_marginTop="@dimen/grid_margin"
             android:background="@color/filledGridColor"
             android:gravity="center"
+            android:onClick="clickBox"
             android:text="1"
             android:textColor="@color/textColor"
             android:textSize="50sp"
@@ -292,7 +274,6 @@
 
         <TextView
             android:id="@+id/box8"
-            android:onClick="clickBox"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/grid_margin"
@@ -303,6 +284,7 @@
             android:layout_marginTop="@dimen/grid_margin"
             android:background="@color/filledGridColor"
             android:gravity="center"
+            android:onClick="clickBox"
             android:text="1"
             android:textColor="@color/textColor"
             android:textSize="50sp"
@@ -315,7 +297,6 @@
 
         <TextView
             android:id="@+id/box5"
-            android:onClick="clickBox"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/grid_margin"
@@ -326,6 +307,7 @@
             android:layout_marginTop="@dimen/grid_margin"
             android:background="@color/filledGridColor"
             android:gravity="center"
+            android:onClick="clickBox"
             android:text="1"
             android:textColor="@color/textColor"
             android:textSize="50sp"
@@ -338,7 +320,6 @@
 
         <TextView
             android:id="@+id/box4"
-            android:onClick="clickBox"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/grid_margin"
@@ -349,6 +330,7 @@
             android:layout_marginTop="@dimen/grid_margin"
             android:background="@color/filledGridColor"
             android:gravity="center"
+            android:onClick="clickBox"
             android:text="1"
             android:textColor="@color/textColor"
             android:textSize="50sp"
@@ -374,6 +356,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/showAstarAnswer"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:background="@color/buttonBackgroundColor"
+        android:onClick="clickShowAnswer"
+        android:text="Show Answer"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/buttonTextColor"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/bestBoard"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
 
 </android.support.constraint.ConstraintLayout>

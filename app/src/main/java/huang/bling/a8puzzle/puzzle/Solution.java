@@ -2,9 +2,12 @@ package huang.bling.a8puzzle.puzzle;
 
 import java.util.*;
 
-// main idea:
-// Find the shortest path between two node in a network.
-// Use Dj
+/**
+ * Find the shortest path between two node in a network.
+ * Breath first search used.
+ *
+ * todo: create network at the process of searching.
+ */
 public class Solution {
     Map<String,Integer> nodeIds;
     Map<Integer,Node> nodeEdges;
@@ -13,16 +16,24 @@ public class Solution {
         createNetwork();
     }
 
-    void solveProblem(String s){
+    ArrayList<ArrayList<Integer>> solveProblem(ArrayList<Integer> prob){
         resetSolution();
+        String s = array2String(prob);
         int startState = nodeIds.get(s);
         int endState = nodeIds.get(target);
-        djAlgorithm(startState,endState);
+        Node node = djAlgorithm(startState,endState);
+        ArrayList<ArrayList<Integer>> answer = new ArrayList<>();
+        while(node != null){
+            answer.add(string2Array(node.nodeString));
+            node = nodeEdges.get(node.lastNode);
+        }
+        return answer;
     }
     // reset all the flags.
     void resetSolution(){
         for(Node node:nodeEdges.values()){
             node.visited = false;
+            node.lastNode = -1;
         }
     }
     private void printSolution(int endState){
@@ -37,7 +48,7 @@ public class Solution {
             puzzle.print();
         }
     }
-    private void djAlgorithm(int startState,int endState){
+    private Node djAlgorithm(int startState,int endState){
         Queue<Node> queue = new LinkedList<>();
         Node startNode = nodeEdges.get(startState);
         startNode.visited = true;
@@ -45,9 +56,7 @@ public class Solution {
         while(queue.size() > 0){
             Node node = queue.poll();
             if(node.id == endState){
-                System.out.println("Solution found");
-                //printSolution(endState);
-                return;
+                return node;
             }
             for(int i = 0;i<node.connectedNode.size();i++){
                 int nextNodeId = node.connectedNode.get(i);
@@ -59,8 +68,9 @@ public class Solution {
                 }
             }
         }
-        System.out.println("Solution not found");
+        return null;
     }
+
     private void createNetwork(){
         // create all nodes
         nodeIds =  new HashMap<>();
@@ -173,6 +183,17 @@ public class Solution {
         ArrayList<String> endState = solution.findPossibleMove(s);
         for(String state:endState){
             System.out.println(state);
+        }
+    }
+    public static void testSolveProblem(){
+        Solution solution = new Solution();
+        Puzzle puzzle = new Puzzle();
+        ArrayList<ArrayList<Integer>> answer = solution.solveProblem((puzzle.puzzle));
+        if(answer.size() == 0)
+            System.out.println("answer not found");
+        for(int i = answer.size()-1;i>=0;i--){
+            Puzzle p = new Puzzle(answer.get(i));
+            p.print();
         }
     }
 }

@@ -11,40 +11,39 @@ import java.util.HashMap;
 import java.util.Map;
 
 import huang.bling.a8puzzle.R;
+import huang.bling.a8puzzle.puzzle.AndroidPuzzle;
 import huang.bling.a8puzzle.puzzle.Puzzle;
 
 // todo  set difficult
 // todo change language
 public class MainActivity extends AppCompatActivity {
+    /**
+     * Only UI related operation in this class,
+     * otherwise, in the AndroidPuzzle.
+     */
+    AndroidPuzzle puzzle;
 
-    Puzzle puzzle;
     Map<Integer,Integer> boxResIds;
     Map<Integer,Integer> boxIds;
-    String PUZZLE_STATE = "huang.bling.8puzzle.puzzle_current_state";
-    String PUZZLE_CUR_STEP = "huang.bling.8puzzle.puzzle_current_step";
     TextView stepView;
     TextView bestView;
     TextView winView;
-    int curStep;
-    int bestValue = 10;
-    boolean gameWin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         stepView = findViewById(R.id.stepValue);
-        bestView = findViewById(R.id.bestValue);
         winView = findViewById(R.id.winView);
-        gameWin = false;
+        bestView = findViewById(R.id.bestValue);
         //todo read bestValue
 
 
         if(savedInstanceState == null){
-            initGame();
+            puzzle = new AndroidPuzzle();
         }
         else{
-            resumeGame(savedInstanceState);
+            puzzle = new AndroidPuzzle(savedInstanceState);
         }
 
         boxResIds = new HashMap<>();
@@ -68,89 +67,76 @@ public class MainActivity extends AppCompatActivity {
         boxIds.put(R.id.box6,6);
         boxIds.put(R.id.box7,7);
         boxIds.put(R.id.box8,8);
-        updateBox();
-    }
-    void initGame(){
-        puzzle = new Puzzle();
-        curStep = 0;
-        stepView.setText(String.valueOf(curStep));
-        gameWin = false;
-        winView.setVisibility(View.INVISIBLE);
-    }
-    void resumeGame(Bundle savedInstanceState){
-        ArrayList<Integer> curState = savedInstanceState.getIntegerArrayList(PUZZLE_STATE);
-        curStep = savedInstanceState.getInt(PUZZLE_CUR_STEP);
-        puzzle = new Puzzle(curState);
-        gameWin = false;
-        winView.setVisibility(View.INVISIBLE);
-        if(puzzle.isSolved()){
-            gameWin = true;
-            winView.setVisibility(View.VISIBLE);
-        }
-    }
-    void showGameWinStage(){
-        Toast toast = Toast.makeText(this,"Great Job",Toast.LENGTH_LONG);
-        toast.show();
-        TextView box = findViewById(boxResIds.get(8));
-        box.setText("9");
-        box.setBackgroundColor(getResources().getColor(R.color.filledGridColor));
-
-        if(curStep < bestValue){
-            bestValue = curStep;
-            bestView.setText(String.valueOf(bestValue));
-            //todo  save best value
-        }
-        // show congratulation
-        winView.setVisibility(View.VISIBLE);
+        refreshUI();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putIntegerArrayList(PUZZLE_STATE,puzzle.puzzle);
-        outState.putInt(PUZZLE_CUR_STEP,curStep);
+        puzzle.savePuzzle(outState);
     }
 
-    void updateBox(){
-        for(int i = 0;i<puzzle.puzzle.size();i++){
-            int val = puzzle.puzzle.get(i);
+    /*****************************************************
+     *  handle View event in here.
+     *  call AndroidPuzzle instance to handle the events.
+     *
+     *  At the end of every event, refresh UI.
+     *
+     */
+    public void clickBox(View view) {
+        int id = boxIds.get(view.getId());
+        puzzle.clickBox(id);
+        refreshUI();
+    }
+
+    public void clickStart(View view) {
+        puzzle.clickStart();
+        refreshUI();
+    }
+    public void clickShowAnswer(View view) {
+        if(puzzle.giveAstarAnswer()){
+            refreshUI();
+        }
+        else{
+            // answer not exists
+            Toast toast = Toast.makeText(this,"answer not exists",Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+
+    /**
+     *********************************************************
+     */
+
+    void refreshUI(){
+        // update the value on box:
+        for(int i = 0;i<9;i++){
+            int val = puzzle.getBoxValue(i);
             TextView box = findViewById(boxResIds.get(i));
             if(val != 0){
                 box.setText(String.valueOf(val));
                 box.setBackgroundColor(getResources().getColor(R.color.filledGridColor));
             }
-
             else{
-                if(gameWin){
-                    box.setText("9");
-                    box.setBackgroundColor(getResources().getColor(R.color.filledGridColor));
-                }
-                else{
-                    box.setText(" ");
-                    box.setBackgroundColor(getResources().getColor(R.color.emptyGridColor));
-                }
+                box.setText(" ");
+                box.setBackgroundColor(getResources().getColor(R.color.emptyGridColor));
             }
         }
-    }
 
-    public void clickBox(View view) {
-        int id = boxIds.get(view.getId());
-        if(gameWin)
-            return;
-        if(puzzle.move(id)){
-            updateBox();
-            curStep++;
-            stepView.setText(String.valueOf(curStep));
+        // update curStep and bestStep
+        int curstep = puzzle.getCurstep();
+        int beststep = puzzle.getBestStep();
+        stepView.setText(String.valueOf(curstep));
+        bestView.setText(String.valueOf(beststep));
+
+        // Show win Stage if possible
+        if(puzzle.isGameWin() && !puzzle.isCheating()){
+            Toast toast = Toast.makeText(this,"Great Job",Toast.LENGTH_LONG);
+            toast.show();
+            winView.setVisibility(View.VISIBLE);
         }
-        if(puzzle.isSolved()){
-            gameWin = true;
-            showGameWinStage();
-
+        else{
+            winView.setVisibility(View.INVISIBLE);
         }
-    }
-
-    public void clickStart(View view) {
-        initGame();
-        updateBox();
     }
 }

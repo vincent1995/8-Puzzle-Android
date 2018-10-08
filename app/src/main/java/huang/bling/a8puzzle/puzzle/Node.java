@@ -10,6 +10,8 @@ public class Node {
     int id;
     int lastNode;
     boolean visited;
+    int distance;
+    int stepNum;
 
     void addEdge(int i){
         connectedNode.add(i);
@@ -20,5 +22,14 @@ public class Node {
         lastNode = -1;
         visited = false;
         this.id = id;
+    }
+    Node(String s,int id, int distance){
+        nodeString = s;
+        connectedNode = new ArrayList<>();
+        lastNode = -1;
+        visited = false;
+        this.id = id;
+        this.distance = distance;
+        stepNum = -1;
     }
 }
